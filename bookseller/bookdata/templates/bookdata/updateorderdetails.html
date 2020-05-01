@@ -1,0 +1,63 @@
+{% extends 'work.html' %}
+{% load static %}
+    <!-- Interaction Script Here -->
+{% block title %}
+    <title>Update Order Details</title>
+{% endblock title %}
+{% block link %}
+    <link rel="stylesheet" href="{% static "css/dropdown.css" %}">
+{% endblock link %}
+{% block script %}
+<script type="text/javascript">
+function exit(){
+    
+    window.location.replace("{% url 'deleteorderdetails' %}");
+}
+</script>
+{% endblock script%}
+{% block content %}
+<div class="container mt-5">
+      <div class="row justify-content-center">
+        <div class="col-md-8">
+          <div class="card">
+            <div class="card-header text-center" style="font-weight:bold;">PUBLISHER</div>
+            <div class="card-body">
+              <form class="form-horizontal" method="POST"  onsubmit="return confirm('Are you sure, You want to Save all value to database?');">
+              {% csrf_token %}
+                <div class="form-group">
+                  <label style="font-weight:bold;">ORDER NO</label>
+                  <input type="number" name= "orderno" required class="form-control" value="{{update.orderno}}"/>
+                  </div>
+                    <div class="form-group">
+                      <label style="font-weight:bold;">QUANTITY</label>
+                      <input type="number" max="20" required name= "quantity" class="form-control"  value="{{update.quantity}}"/>
+                      </div>
+                      <div class="form-group">
+                      <label style="font-weight:bold;">BOOKID</label>
+                      <input type="text" disabled class="form-control"  value="{{update.bookid}}"/>
+                      </div>
+                      <label style="font-weight:bold;">UPDATE BOOKID FROM HERE</label>
+                      <br/>
+                      <select name="allvalue" class="form-control" >
+                        <option value=" " selected>-----------</option>
+                        {% for i in values %}
+                          <option value="{{i.bookid}}">{{i.bookid}} ({{i.title}})</option>
+                        {% endfor %}
+                      </select>
+                    
+                    <div class="mt-5">
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-warning btn-lg btn-block ">UPDATE</button>
+                          </div>
+                          <div class="form-group">
+                            <button type="button" onclick="exit()" class="btn btn-success btn-lg btn-block ">RETURN</button>
+                          </div>
+                    </div>
+                </div>
+
+              </form>
+          </div>
+        </div>
+      </div>
+    </div>
+{% endblock content %}

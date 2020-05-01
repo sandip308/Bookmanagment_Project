@@ -1,0 +1,99 @@
+{% extends 'work.html' %}
+{% load static %}
+{% block title %}
+<title>Enter Catalog Details</title>
+{% endblock title %}
+{% block link %}
+<link type="text/css" rel="stylesheet" href="{% static "css/dropdown.css" %}" />
+<style>
+.errorlist {
+    color: red;
+    list-style-type: None;
+    }
+</style>
+{% endblock link %}
+{% block script %}
+<script type="text/javascript">
+    function out(){
+        if(window.close()){
+            window.location.replace("{% url 'choice' %}");
+        }
+    }
+jQuery(function() {
+    $("#catalogpublish").on('keyup', function(){
+        var value = $(this).val();
+        $.ajax({
+            url: "{% url 'catalogautocomplete' %}",
+            data: {
+              'search': value
+            },
+            dataType: 'json',
+            success: function (data) {
+                list = data.list;
+                $("#catalogpublish").autocomplete({
+                source: list,
+                minLength: 2
+                });
+            }
+        });
+    });
+});
+</script>
+{% endblock script %}
+{% block content %}
+<div class="container mt-5">
+      <div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <div class="card">
+                            <div class="card-header text-center">CATALOG  DETAILS</div>
+                            <div class="card-body">
+                              <form class="form-horizontal" onsubmit= "return confirm('Are you sure about making the above changes?');" action="{% url 'catalog' %}" method="POST">
+                              {% csrf_token %}
+
+                                    <div class="form-group">
+                                        <label class="cols-sm-2 control-label">BOOK ID</label>
+                                        {{form.bookid}}
+                                        <span>{{form.bookid.errors}}</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="cols-sm-2 control-label">TITLE</label>
+                                        {{form.title}}
+                                        <span>{{form.title.errors}} </span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label  class="cols-sm-2 control-label">CHOOSE FROM AVAILABLE AUTHOR ID</label>
+                                        <br/>
+                                        {{form.authorid}}
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="cols-sm-2 control-label">CHOOSE FROM AVAILABLE PUBLISHER ID</label>
+                                        <br/>
+                                        {{form.publisherid}}
+                                        
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="cols-sm-2 control-label">CHOOSE FROM AVAILABLE CATAGORY ID</label>
+                                        <br/>
+                                        {{form.catagoryid}}
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="cols-sm-2 control-label">YEAR</label>
+                                        {{form.year_of_publish}}
+                                        <span>{{form.year_of_publish.errors}}</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label  class="cols-sm-2 control-label">PRICE</label>
+                                        {{form.price}}
+                                        {{form.price.errors}}
+                                    </div>
+                                    <div class="form-group ">
+                                        <button type="button" class="btn btn-danger" onclick="out()">RETURN</button>
+                                        <button type="submit" class="btn btn-info float-right">SAVE</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              </div>
+{% endblock content %}

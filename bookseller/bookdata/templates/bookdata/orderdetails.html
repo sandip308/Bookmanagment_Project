@@ -1,0 +1,60 @@
+{% extends 'work.html' %}
+{% load static %}
+{% block title %}
+<title>Put the Order Details </title>
+{% endblock title %}
+
+{% block link %}
+<link type="text/css" rel="stylesheet" href="{% static 'css/dropdown.css' %}" />
+<style>
+.errorlist {
+    color: red;
+    list-style-type: None;
+    }
+</style>
+{% endblock link %}
+{% block script %}
+<script type="text/javascript">
+    function previous(){
+    if(window.close()){
+        window.location.replace("{% url 'choice' %}");
+    }
+}
+</script>
+{% endblock script %}
+{% block content %}
+<div class="container mt-5">
+      <div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <div class="card">
+                            <div class="card-header text-center">ORDER DETAILS</div>
+                            <div class="card-body">
+                              <form class="form-horizontal" onsubmit="return confirm('Are you sure about making the above changes?');" action="{% url 'orderdetails' %}" method="POST">
+                              {% csrf_token %}
+                                    <div class="form-group">
+                                        <label  class="cols-sm-2 control-label">ORDER NO</label>
+                                        {{form.orderno}}
+                                        <span>{{form.orderno.errors}} </span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label  class="cols-sm-2 control-label">BOOK ID</label>
+                                        <br>
+                                        {{form.bookid}}
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="cols-sm-2 control-label">CHOOSE QUANTITY</label>
+                                        <br>
+                                        {{form.quantity}}
+                                        {{form.quantity.errors}}
+                                    </div>
+                                    <div class="form-group ">
+                                        <button type="button" class="btn btn-danger" onclick="previous()">RETURN</button>
+                                        <button type="submit" class="btn btn-info float-right">SAVE</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              </div>
+{% endblock content %}

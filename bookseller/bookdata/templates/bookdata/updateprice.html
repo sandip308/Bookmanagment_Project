@@ -1,0 +1,261 @@
+{% extends 'work.html' %}
+{% load static %}
+{% block title %}
+<title>Update The Price</title>
+{% endblock title %}
+{% block link %}
+<link rel="stylesheet" href="{% static "css/dropdown.css" %}">
+{% endblock link %}
+{% block script %}
+<script type="text/javascript">
+      function out(){
+          if(window.close()){
+              window.location.replace("{% url 'success' %}");
+          }
+      }
+      jQuery(function() {
+    $("#book").on('keyup', function(){
+        var value = $(this).val();
+        $.ajax({
+            url: "{% url 'updatepriceautocomplete' %}",
+            data: {
+              'search': value
+            },
+            dataType: 'json',
+            success: function (data) {
+                list = data.title;
+                $("#book").autocomplete({
+                source: list,
+                minLength: 2
+                });
+            }
+        });
+    });
+    $("#publisher_name").on('keyup', function(){
+        var value = $(this).val();
+        $.ajax({
+            url: "{% url 'updatepriceautocomplete' %}",
+            data: {
+              'search': value
+            },
+            dataType: 'json',
+            success: function (data) {
+                list = data.list;
+                $("#publisher_name").autocomplete({
+                source: list,
+                minLength: 2
+                });
+            }
+        });
+    });
+
+      });
+    </script>
+{% endblock script %}
+{% block content %}
+<div class="container mt-5">
+      <div class="row justify-content-center main">
+                    <div class="col-md-8 col-xs-2">
+                        <div class="card">
+                            <div class="card-header text-center">UPDATE  PRICE</div>
+                            <div class="card-body">
+                            <div class="row justify-content-center">
+                            <div class="col-md-6 col-sm-4 col-xs-4">
+                              <button type="button" class="btn btn-sm btn-block btn-info" data-toggle="modal" data-target="#sideModalTR">
+                                SHOW AVAILABLE PRICE
+                              </button>
+                              <button type="button" class="btn btn-block btn-primary btn-sm mt-4 " data-toggle="modal" data-target="#myModal">SHOW PUBLISHER</button>
+                            </div>
+                            </div>
+                              <form class="form-horizontal" onsubmit="return confirm('Are you sure about making the above changes?');" method="POST" action="{% url 'updateprice' %}">
+                                    {% csrf_token %}
+                                    <div class="form-group">
+                                      <!--Modal content start Here -->
+                                      <div class="container">
+                                        <!-- Trigger the modal with a button -->                      
+                                        
+                                        <div class="modal fade right" id="sideModalTR" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                                          aria-hidden="true">
+                                        
+                                          
+                                          <div class="modal-dialog modal-side modal-top-right" role="document">  
+                                        
+                                            <div class="modal-content">
+                                              <div class="modal-header">
+                                              
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                  <span aria-hidden="true">&times;</span>
+                                                </button>
+                                              </div>
+                                              <div class="modal-body">
+                                                <table class="table table-dark">
+                                                  <thead>
+                                                    <tr>
+                                                      <th scope="col">TITLE</th>
+                                                      <th scope="col">PRICE OF BOOK</th>
+                                                    </tr>
+                                                  </thead>
+                                                  {% if price %}
+                                                  <tbody class= "table-striped">
+                                                    {% for title,price in price.items %}
+                                                    <tr>         
+                                                      <td>{{title}}</td>
+                                                      <td>{{price}}</td>
+                                                    </tr>
+                                                    {% endfor %}
+                                                  </tbody>
+                                                  {% else %}
+                                                    <tbody >  
+                                                    <tr>         
+                                                      <td>Nothing to show At this Time</td>
+                                                    </tr>
+                                                  </tbody>
+                                                  {% endif %}
+                                                </table>
+                                              </div>
+                                              <div class="modal-footer">
+                                                <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <!--<div class="middle">-->
+
+                                        
+                                        <!--</div>-->
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="myModal" role="dialog">
+                                          <div class="modal-dialog">
+
+                                            <!-- Modal content-->
+                                            <div class="modal-content">
+                                              <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                              </div>
+                                              <div class="modal-body">
+                                                <table class="table table-dark">
+                                                    <thead>
+                                                      <tr>
+                                                        <th scope="col">PUBLISHER ID</th>
+                                                        <th scope="col">PUBLISHER NAME</th>
+                                                      </tr>
+                                                    </thead>
+                                                    {% if name %}
+                                                    <tbody class= "table-striped">
+                                                      {% for key,value in name.items %}
+                                                      <tr>         
+                                                        <td>{{key}}</td>
+                                                        <td>{{value}}</td>
+                                                      </tr>
+                                                      {% endfor %}
+                                                    </tbody>
+                                                    {% else %}
+                                                      <tbody >  
+                                                      <tr>         
+                                                        <td>No Publisher Available At this Time</td>
+                                                      </tr>
+                                                    </tbody>
+                                                    {% endif %}
+                                                  </table>
+
+                                              </div>
+                                              <div class="modal-footer">
+                                                <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+                                              </div>
+                                            </div>
+
+                                          </div>
+                                        </div>
+
+                                      </div>
+                                    </div>
+                                    <!-- SHOW PUBLISHER Modal END-->
+                                    <!--Modal Content End -->
+                                    <!--ERROR MODAL START-->
+                                    {% if messages %}
+                                    <script>
+                                    window.onload = ()=>{
+                                      $("#mymessageModal").modal('show');}
+                                    </script>
+                                    
+                                    <div id="mymessageModal" class="modal fade" role="dialog">
+                                      <div class="modal-dialog">
+                                    
+                                        <!-- Modal content-->
+                                        <div class="modal-content">
+                                          <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                          </div>
+                                          <div class="modal-body">
+                                          {% for msg in messages %}
+                                          <div class=" alert alert-warning">  
+                                            {{msg}}
+                                           </div>
+                                           {% endfor %}
+                                          </div>
+                                          <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    {% endif %}
+                                    <!--ERROR MODAL END-->
+                                    <div class="form-group ">
+                                        <label  class="cols-sm-2 control-label space">PUBLISHER NAME</label>
+                                        <div class="cols-sm-10">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" name="publisher_name" id="publisher_name" required placeholder="Enter Publisher Name" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Radio button-->
+                                    <div class="form-group mt-4">
+                                    <div class="row justify-content-center">
+                                    <div class="col-md-6 col-sm-4 col-xs-4">
+                                      <label class="control-label btn btn-sm btn-block btn-success" for='all'>
+                                        <input type="radio" name="radSize"  onchange="document.getElementById('book').disabled = this.checked;" id="all" checked>SELECT ALL BOOKS
+                                      </label>
+                                      <label class="control-label btn btn-sm btn-block btn-danger mt-4" for='particular'>
+                                        <input type="radio" onchange="document.getElementById('book').disabled = !this.checked;" name="radSize" id="particular">SELECT PARTICULAR BOOK
+                                      </label>
+                                      </div>
+                                      </div>
+                                    </div>
+
+
+                                    <!-- Radio Button End-->
+                                    <!--Name Of Particular Book-->
+                                    <div class="form-group mt-4">
+                                        <label for="book" class="cols-sm-2 control-label">NAME A PARTICULAR BOOK</label>
+                                        <div class="cols-sm-10">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" name="book" id="book" required placeholder="Enter Particular Book Title" disabled>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--Name Of Particular Book End-->
+                                    <!--Enter the Change Start-->
+                                    <div class="form-group mt-2">
+                                        <label for="change_price" class="cols-sm-2 control-label">ENTER THE CHANGE(%)</label>
+                                        <div class="cols-sm-10">
+                                            <div class="input-group">
+                                                <input type="number"  class="form-control" required name="change_price" id="change_price" placeholder="Enter The Updated Amount">
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <!--Enter the change End-->
+                                    <div class="form-group ">
+                                      <button type="button" class="btn btn-danger" onclick="out()">MAIN</button>
+                                      <button type="submit" class="btn btn-info float-right">CHANGE</button>
+                                    </div>
+                                  </form>
+                              </div>
+
+                          </div>
+                      </div>
+      </div>
+</div>
+{% endblock content %}

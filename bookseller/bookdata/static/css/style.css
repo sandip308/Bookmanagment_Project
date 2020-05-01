@@ -1,0 +1,234 @@
+* {
+  padding: 0;
+  margin: 0;
+  text-decoration: none;
+  list-style: none;
+  box-sizing: border-box;
+}
+body {
+  font-family: montserrat;
+}
+nav {
+  background-image: linear-gradient(260deg, #2376ae 0%, #c16ecf 100%);
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  height: 80px;
+  width: 100%;
+}
+label.logo {
+  color: white;
+  font-size: 35px;
+  line-height: 80px;
+  padding: 0 100px;
+  font-weight: bold;
+  position: fixed;
+}
+nav ul {
+  float: right;
+  margin-right: 20px;
+}
+nav ul li {
+  display: inline-block;
+  line-height: 80px;
+  margin: 0 5px;
+}
+nav ul li a {
+  color: white;
+  font-size: 17px;
+  padding: 6px 13px;
+  border-radius: 3px;
+  text-transform: uppercase;
+}
+a.active,
+a:hover {
+  background-color: #4caf50;
+  transition: 0.5s;
+  color: white;
+  display: block;
+  box-sizing: border-box;
+  height: 80px;
+  width: 100%;
+}
+li a:hover:not(.active) {
+  background-color: #555;
+  color: white;
+  text-decoration: none;
+}
+.checkbtn {
+  font-size: 30px;
+  color: white;
+  float: right;
+  line-height: 80px;
+  margin-right: 40px;
+  cursor: pointer;
+  display: none;
+}
+#check {
+  display: none;
+}
+@media (max-width: 952px) {
+  label.logo {
+    font-size: 30px;
+    padding-left: 50px;
+  }
+  nav ul li a {
+    font-size: 16px;
+  }
+}
+@media (max-width: 858px) {
+  .checkbtn {
+    display: block;
+  }
+  ul {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    background: #2c3e50;
+    top: 80px;
+    left: -100%;
+    text-align: center;
+    transition: all 0.5s;
+  }
+  nav ul li {
+    display: block;
+    margin: 50px 0;
+    line-height: 30px;
+  }
+  nav ul li a {
+    font-size: 20px;
+  }
+  a:hover,
+  a.active {
+    background: none;
+    color: #4caf50;
+  }
+  li a:hover:not(.active) {
+    background: none;
+    color: #00ffff;
+  }
+  #check:checked ~ ul {
+    left: 0;
+  }
+}
+.bgimg {
+  background-image: url("/static/Book.jpg");
+  background-size: 100% 100%;
+  background-attachment: fixed;
+  width: 100%;
+  height: 740px;
+}
+
+/* .bgimg_alt {
+  background-image: url("/static/Background_book.jpg");
+  background-size: 100% 100%;
+  background-attachment: fixed;
+  width: 100%;
+  height: 740px;
+} */
+.hey {
+  padding-top: 250px;
+  box-sizing: border-box;
+  justify-content: center;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  font-family: "Helvetica Narrow", sans-serif;
+  animation: text-glow 2.5s linear infinite;
+}
+.hey h1 {
+  font-size: 60px;
+  font-family: sans-serif;
+  font-weight: bold;
+}
+.myservice {
+  padding-top: 100px;
+  padding-bottom: 60px;
+  height: 680px;
+}
+#san {
+  font-size: 50px;
+  font-weight: bold;
+}
+.myrow {
+  margin: 70px 0px;
+}
+.mycart {
+  border-radius: 50%;
+  height: 100px;
+  width: 100px;
+  background-color: rgb(244, 241, 66);
+}
+.fa-shopping-cart,
+.fa-file-pdf {
+  margin-top: 12px;
+}
+.fa-desktop {
+  margin-top: 25px;
+}
+.myrow h2 {
+  margin-top: 20px;
+  font-weight: bold;
+}
+.myrow p {
+  margin-top: 8px;
+  padding: 10px;
+}
+.port {
+  width: 100%;
+  padding: 120px 0px 40px;
+  height: 200px;
+}
+.card {
+  margin-top: 80px;
+}
+/* .group > span:nth-child(0){
+  
+} */
+/* .containergroup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.sandip {
+  display: table-cell;
+  color: white;
+  font-family: "Helvetica Narrow", sans-serif;
+  font-size: 2rem;
+  justify-content: center;
+  animation: text-glow 2.5s linear infinite;
+} */
+@keyframes text-glow {
+  0%,
+  100% {
+    text-shadow: 0 0 10px #0066ff, 0 0 20px #0066ff, 0 0 40px #0066ff,
+      0 0 80px #0066ff, 0 0 160px #0066ff, 0 0 320px #0066ff;
+  }
+  20%,
+  80% {
+    color: #ffe066;
+    filter: blur(0px);
+    text-shadow: none;
+  }
+}
+/* .saikat {
+  display: table-cell;
+  color: white;
+  font-family: "Helvetica Narrow", sans-serif;
+  font-size: 3rem;
+  animation: second-text 2.5s linear infinite;
+}
+@keyframes second-text {
+  0%,
+  100% {
+    text-shadow: 0 0 10px #0066ff, 0 0 20px #0066ff, 0 0 40px #0066ff,
+      0 0 80px #0066ff, 0 0 160px #0066ff, 0 0 320px #0066ff;
+  }
+  20%,
+  80% {
+    color: #ff944d;
+     
+    filter: blur(0px);
+    text-shadow: none;
+  }
+} */
+
+/* Register style */

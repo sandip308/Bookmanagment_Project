@@ -1,0 +1,18 @@
+
+  <nav class="fixed-top">
+    <input type="checkbox" id="check" />
+    <label for="check" class="checkbtn">
+      <i class="fas fa-bars"></i>
+    </label>
+    <label class="logo">Book Managment</label>
+    <ul>
+      <li>
+        <a class="active" style="text-decoration: none;" href="{% url 'home' %}"
+          >Home</a
+        >
+      </li>
+      <li><a href="{% url 'login' %}">Login</a></li>
+      <li><a href="{% url 'app-register' %}">Register</a></li>
+    </ul>
+  </nav>
+

@@ -1,0 +1,116 @@
+{% extends 'work.html' %}
+{% load static %}
+{% block title %}
+<title>Enter Publisher Details</title>
+{% endblock title %}
+{% block link %}
+<link rel="stylesheet" href="{% static "css/dropdown.css" %}">
+<style>
+.errorlist {
+    color: red;
+    list-style-type: None;
+    }
+</style>
+{% endblock link %}
+{% block script %}
+<script type="text/javascript">
+function previous(){
+    if(window.close()){
+        window.location.replace("{% url 'choice' %}");
+    }
+}
+jQuery(function() {
+    $("#mycountry").on('keyup', function(){
+        var value = $(this).val();
+        $.ajax({
+            url: "{% url 'publisherautocomplete' %}",
+            data: {
+              'search': value
+            },
+            dataType: 'json',
+            success: function (data) {
+                list = data.list;
+                $("#mycountry").autocomplete({
+                source: list,
+                minLength: 2
+                });
+            }
+        });
+    });
+    $("#myname").on('keyup', function(){
+        var value = $(this).val();
+        $.ajax({
+            url: "{% url 'publisherautocomplete' %}",
+            data: {
+              'search': value
+            },
+            dataType: 'json',
+            success: function (data) {
+                list = data.name;
+                $("#myname").autocomplete({
+                source: list,
+                minLength: 2
+                });
+            }
+        });
+    });
+    $("#mycity").on('keyup', function(){
+        var value = $(this).val();
+        $.ajax({
+            url: "{% url 'publisherautocomplete' %}",
+            data: {
+              'search': value
+            },
+            dataType: 'json',
+            success: function (data) {
+                list = data.city;
+                $("#mycity").autocomplete({
+                source: list,
+                minLength: 2
+                });
+            }
+        });
+    });
+  });
+</script>
+{% endblock script %}
+{% block content %}
+<div class="container mt-5">
+      <div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <div class="card">
+                            <div class="card-header text-center">PUBLISHER DETAILS</div>
+                            <div class="card-body">
+                              <form class="form-horizontal" onsubmit="return confirm('Are you sure about making the above changes?');" action="{% url 'publisher' %}" method="POST">
+                              {% csrf_token %}
+                                    <div class="form-group">
+                                        <label  class="cols-sm-2 control-label">PUBLISHER ID</label>
+                                        {{form.publisherid}}
+                                        <span>{{form.publisherid.errors}}</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label  class="cols-sm-2 control-label">NAME</label>
+                                        {{form.name}}
+                                        <span>{{form.name.errors}} </span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label  class="cols-sm-2 control-label">CITY</label>
+                                        {{form.city}}
+                                        <span>{{form.city.errors}}</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label  class="cols-sm-2 control-label">COUNTRY</label>
+                                        {{form.country}}
+                                        <span>{{form.country.errors}}</span>
+                                    </div>
+                                    <div class="form-group ">
+                                        <button type="button" class="btn btn-danger " onclick="previous()">RETURN</button>
+                                        <button type="submit" class="btn btn-info float-right">SAVE</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              </div>
+{% endblock content %}

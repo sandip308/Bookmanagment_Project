@@ -1,0 +1,152 @@
+{% extends 'work.html' %}
+{% load static %}
+    <!-- Interaction Script Here -->
+    {% block title %}
+        <title> Hello-{{request.session.username}} </title>
+    {% endblock title %}
+    {% block link %}
+    <link rel="stylesheet" href="{% static 'css/successstyle.css' %}">
+      <link rel="stylesheet" href="{% static "css/index.css" %}">
+    {% endblock link %}
+    {% block script %}
+    <script type="text/javascript">
+            function win() {
+                window.open("{% url 'choice' %}","choice");
+            }
+            function win1(){
+                window.open("{% url 'authordetails' %}","authordetails");
+            }
+            function win2(){
+                window.open("{% url 'authormaxsales' %}","maxsales");
+            }
+            function win3(){
+                window.open("{% url 'updateprice' %}","updateprice");
+                
+            }
+            function win4(){
+                window.open("{% url 'updatedelete' %}","updatedelete");
+            }
+    </script>
+    {% endblock script %}
+    {% block content %}
+    <nav class="fixed-top">
+        <input type="checkbox" id="check" />
+        <label for="check" class="checkbtn">
+          <i class="fas fa-bars"></i>
+        </label>
+        <label class="logo">Book Managment</label>
+        <ul>
+          <li><p style="font-size:17px;color:white;">Welcome {{request.session.username}}</p></li>
+          <li><a href="{% url 'logout' %}">Logout</a></li>
+        </ul>
+      </nav>
+
+        <!-- Interaction Code Here-->
+        <div class="intraction-box">
+            <div class="container">
+                <div class="row">
+                    
+                    <div class="col-lg-4 col-xs-6  text-center">
+                        <div class="box">
+                            <i class="fa fa-database fa-3x" aria-hidden="true"></i>
+                            <div class="box-title">
+                                <h3>Insert Values</h3>
+                            </div>
+                            {% if user.is_staff %}
+                            <div class="box-text">
+                                <span style="color: green;">You Can Insert The Values</span>
+                            </div>
+                            <div class="box-btn">
+                                <button type="button" class="btn btn-info" onclick= "win()">SELECT</button>
+                            </div>
+                            {% else %}
+                                <div class="box-text">
+                                <span style="color: red;">Sorry, You Are Not Adimn, You Can't Insert Values</span>
+                                </div>
+                                <div class="box-btn">
+                                <button type="button" style = "cursor: default;"class="btn btn-info" disabled >SELECT</button>
+                                </div>
+                            {% endif %}
+                         </div>
+                    </div>
+                    <div class="col-lg-4 col-xs-6  text-center">
+                        <div class="box">
+                            <i class="fa fa-eye fa-3x" aria-hidden="true"></i>
+                            <div class="box-title">
+                                <h3>View Author Details</h3>
+                            </div>
+                            <div class="box-text">
+                                <span>Click The Button To View The Author Details</span>
+                            </div>
+                            <div class="box-btn">
+                                <button type="button" class="btn btn-info" onclick="win1()" >SELECT</button>
+                            </div>
+                         </div>
+                    </div>
+                    <div class="col-lg-4 col-xs-6  text-center">
+                        <div class="box">
+                            <i class="fa fa-window-maximize fa-3x" aria-hidden="true"></i>
+                            <div class="box-title">
+                                <h3>Author With Max Sales</h3>
+                            </div>
+                            <div class="box-text">
+                                <span>Click The Button To View Author Max Sales</span>
+                            </div>
+                            <div class="box-btn">
+                                <button type="button" class="btn btn-info" onclick="win2()" >SELECT</button>
+                            </div>
+                         </div>
+                    </div>
+                    <div class="col-lg-4 col-xs-6  text-center mt-4">
+                        <div class="box">
+                            <i class="fa fa-money fa-3x" aria-hidden="true"></i>
+                            <div class="box-title">
+                                <h3>Change Price</h3>
+                            </div>
+                            {% if user.is_staff %}
+                            <div class="box-text">
+                                <span style="color: green;">Click The Button To Change The Price</span>
+                            </div>
+                            <div class="box-btn">
+                                <button type="button" class="btn btn-info" onclick="win3()" >SELECT</button>
+                            </div>
+                            {% else %}
+                                <div class="box-text">
+                                <span style="color: red;">Sorry,Only Admin Can Change Price</span>
+                                </div>
+                                <div class="box-btn">
+                                <button type="button" style = "cursor: default;"class="btn btn-info" disabled >SELECT</button>
+                                </div>
+                            {% endif %}
+                         </div>
+                    </div>
+                    <div class="col-lg-4 col-xs-6  text-center mt-4">
+                        <div class="box">
+                            <i class="fa fa-wrench fa-3x" aria-hidden="true"></i>
+                            <div class="box-title">
+                                <h3>Update or Delete</h3>
+                            </div>
+                            {% if user.is_staff %}
+                            <div class="box-text">
+                                <span style="color: green;">Click The Button To Update or delete</span>
+                            </div>
+                            <div class="box-btn">
+                                <button type="button" class="btn btn-info" onclick="win4()" >SELECT</button>
+                            </div>
+                            {% else %}
+                                <div class="box-text">
+                                <span style="color: red;">Sorry, You Are Not Adimn</span>
+                                </div>
+                                <div class="box-btn">
+                                <button type="button" style = "cursor: default;"class="btn btn-info" disabled >SELECT</button>
+                                </div>
+                            {% endif %}
+                         </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+       
+{% endblock content %}

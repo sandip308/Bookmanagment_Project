@@ -1,0 +1,93 @@
+{% extends 'work.html' %}
+{% load static %}
+{% load customfilter %}
+    <!-- Interaction Script Here -->
+{% block title %}
+    <title>Update Catalog Details</title>
+{% endblock title %}
+{% block link %}
+    <link rel="stylesheet" href="{% static "css/dropdown.css" %}">
+{% endblock link %}
+{% block script %}
+<script type="text/javascript">
+function exit(){
+    
+    window.location.replace("{% url 'deletecatalog' %}");
+}
+</script>
+{% endblock script%}
+{% block content %}
+<div class="container mt-5">
+      <div class="row justify-content-center">
+        <div class="col-md-8">
+          <div class="card">
+            <div class="card-header text-center" style="font-weight:bold;">CATALOG</div>
+            <div class="card-body">
+              <form class="form-horizontal" method="POST"  onsubmit="return confirm('Are you sure, You want to Save all value to database?');">
+              {% csrf_token %}
+                <div class="form-group">
+                  <label style="font-weight:bold;">BOOK ID</label>
+                  <input type="number" name= "bookid" required class="form-control" value="{{update.bookid}}"/>
+                  </div>
+                    <div class="form-group">
+                      <label style="font-weight:bold;">TITLE</label>
+                      <input type="text"  name= "title" required class="form-control"  value="{{update.title}}"/>
+                      </div>
+                      <div class="form-group">
+                      <label style="font-weight:bold;">YEAR OF PUBLISH</label>
+                      <input type="text" class="form-control" required name= "yearofpublish" value="{{update.year_of_publish}}"/>
+                      </div>
+                      <div class="form-group">
+                      <label style="font-weight:bold;">PRICE</label>
+                      <input type="number" step="any" class="form-control" required name="price" value="{{update.price}}"/>
+                      </div>
+                      <div class="form-group">
+                      <label style="font-weight:bold;">EXISTING AUTHOR ID</label>
+                      <input type="text" class="form-control" disabled value="{{update.authorid}}"/>
+                      </div>
+                      <div class="form-group">
+                      <label style="font-weight:bold;">EXISTING PUBLISHER ID</label>
+                      <input type="text" class="form-control" disabled value="{{update.publisherid}}"/>
+                      </div>
+                      <div class="form-group">
+                      <label style="font-weight:bold;">EXISTING CATAGORY ID</label>
+                      <input type="text" class="form-control" disabled value="{{update.catagoryid}}"/>
+                      </div>
+                      <label style="font-weight:bold;">UPDATE AUTHOR ID</label>
+                      <select name="allauthor" class="form-control" >
+                        <option value=" " selected>-----------</option>
+                        {% for i in author %}
+                          <option value="{{i.authorid}}">{{i.authorid}} ({{i.name}})</option>
+                        {% endfor %}
+                      </select>
+                      <label style="font-weight:bold;">UPDATE PUBLISHER ID</label>
+                      <select name="allpublisher" class="form-control" >
+                        <option value=" " selected>-----------</option>
+                        {% for j in publisher %}
+                          <option value="{{j.publisherid}}">{{j.publisherid}} ({{j.name}})</option>
+                        {% endfor %}
+                      </select>
+                      <label style="font-weight:bold;">UPDATE CATAGORY ID</label>
+                      <select name="allcatagory" class="form-control" >
+                        <option value=" " selected>-----------</option>
+                        {% for k in catagory %}
+                          <option value="{{k.catagoryid}}">{{k.catagoryid}} ({{k.description|split:' '}})</option>
+                        {% endfor %}
+                      </select>
+                    
+                    <div class="mt-5">
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-warning btn-lg btn-block ">UPDATE</button>
+                          </div>
+                          <div class="form-group">
+                            <button type="button" onclick="exit()" class="btn btn-success btn-lg btn-block ">RETURN</button>
+                          </div>
+                    </div>
+                </div>
+
+              </form>
+          </div>
+        </div>
+      </div>
+    </div>
+{% endblock content %}

@@ -1,0 +1,75 @@
+{% extends 'work.html' %}
+{% load static %}
+{% block title %}
+<title>Author With Max Sales</title>
+{% endblock title %}
+{% block link %}
+<link rel="stylesheet" href="{% static "css/dropdown.css" %}">
+{% endblock link %}
+{% block script %}
+<script type="text/javascript">
+function exit(){
+    if(window.close())
+    {
+        window.location.replace("{% url 'success' %}");
+    }
+}
+    jQuery(function(){
+      var c = 0;
+    $('.display_block').hide();
+  $('#display').click(function(){
+    c++;
+    if((c%2) == 0)
+    {
+      $('.display_block').hide()
+    }
+    else{
+      $('.display_block').show();
+    }
+  });
+
+    });
+</script>
+{% endblock script %}
+{% block content %}
+<div class="container mt-5">
+     <div class="row justify-content-center">
+                   <div class="col-md-8">
+                       <div class="card">
+                           <div class="card-header text-center">AUTHOR WITH MAX SALES</div>
+                           <div class="card-body">
+                               <div class="form-group text-center">
+                                   <h5>DISPLAY THE NAME OF AUTHORS</h5>
+                                   {% if sandip %}
+                                    <span style="color:red;">MAX SALES OF AUTHOR GIVES BASED ON SALES TILL NOW</span>
+                                   {% endif %}
+                               </div>
+                               {% if sandip %}
+                               {% for i in sandip %}
+                               <div class=" container mt-3 display_block ">
+                                 <div class="row justify-content-center">
+                                   <div class="col-sm-6 text-center text-info bg-light rounded-circle">
+                                      <h3>{{i}}</h3>
+                                   </div>
+                                 </div>
+                               </div>
+                               {% endfor %}
+                               {% else %}
+                                <div class=" container mt-3 display_block">
+                                 <div class="row justify-content-center">
+                                   <div class="col-sm-6 text-center text-info bg-light rounded-left-right">
+                                      <h4>No Authors Avalilable Now</h4>
+                                   </div>
+                                 </div>
+                               </div>
+                               {% endif %}
+                               <div class="form-group">
+                                 <button type="button" onclick="exit()" class="btn btn-danger" name="button">RETURN</button>
+                                 <button type="button" class="float-right btn btn-success" id = 'display' name="button">DISPLAY</button>
+                               </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+{% endblock content %}

@@ -1,0 +1,273 @@
+{% extends 'work.html' %}
+{% load static %}
+{% block title %}
+<title>Search Author Details</title>
+{% endblock title %}
+{% block link %}
+<link rel="stylesheet" href="{% static 'css/dropdown.css' %}">
+{% endblock link %}
+{% block script %}
+<script type="text/javascript">
+
+    var co = 0;
+  var min = 0;
+  var price = 0;
+  var pub = 0;
+    function myfunc1(){
+      co++;
+      min = 1;
+      if(check() === true){
+        if(min ===1 && price ===1){
+          document.getElementById('secondpublication').disabled = true;
+        }
+        if(pub === 1 && min ===1){
+          document.getElementById('secondpriceinput').disabled = true;
+        }
+      }
+    }
+    function myfunc2(){
+      co++;
+      price = 1;
+      if(check() === true){
+        if(min ===1 && price ===1){
+          document.getElementById('secondpublication').disabled = true;
+        }
+        if(price === 1 && pub === 1)
+        {
+          document.getElementById('secondminvalue').disabled = true;
+        }
+      }
+    }
+    function myfunc3(){
+      co++;
+      pub = 1;
+      if(check() === true){
+        if(pub ===1 && price ===1){
+          document.getElementById('secondminvalue').disabled = true;
+        }
+        if(pub === 1 && min ===1){
+          document.getElementById('secondpriceinput').disabled = true;
+        }
+      }
+    }
+    function firstclick(){
+      if(pub === 1 && price === 1){
+        document.getElementById('secondminvalue').disabled = false;
+      }
+      if(pub===1 && min === 1){
+        document.getElementById('secondpriceinput').disabled = false;
+      }
+      if(min===1 && price===1){
+        document.getElementById('secondpublication').disabled = false;
+      }
+      co = 0;
+      min = 0;
+      price = 0;
+      pub = 0;
+    }
+    function check(){
+      if(co == 2)
+      {
+        return true;
+      }
+    }
+    function firstinput(){
+        document.getElementById('minidprice').disabled = true;
+        document.getElementById('minidpublication').disabled = true;
+    }
+    function secondinput(){
+        document.getElementById('minidinput').disabled = true;
+        document.getElementById('minidpublication').disabled = true;
+    }
+    function thirdinput(){
+        document.getElementById('minidinput').disabled = true;
+        document.getElementById('minprice').disabled = true;
+    }
+    function secondclick(){
+      
+        document.getElementById('minidinput').disabled = false;
+        document.getElementById('minidprice').disabled = false;
+        document.getElementById('minidpublication').disabled = false;
+        
+    }
+    function exit(){
+          if(window.close()){
+              window.location.replace("{% url 'success' %}");
+          }
+    }
+</script>
+{% endblock script %}
+
+{% block content %}
+<div class="container mt-5">
+          <div class="row justify-content-center">
+            <div class="text-center col-lg-12 col-xs-12 author-details">
+              <h3>VIEW AUTHOR DETAILS</h3>
+            </div>
+          <div class="dropdown">
+            <button class="btn btn-success dropdown-toggle mt-4" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              SEARCH BY FILTER
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <button type="button" id = "firstbutton" onclick="secondclick()" class="dropdown-item"  data-toggle="modal" data-target="#exampleModalone">BY SELECTING ANY OF ONE</button>
+              <button type="button" id = "secondbutton" onclick="firstclick()" class="dropdown-item" data-toggle="modal" data-target="#exampleModaltwo">BY SELECTING ANY OF TWO</button>
+              
+            </div>
+          </div>
+          </div>
+          <form class="form-horizontal" id='myform' action="{% url 'authordetails' %}"  method="POST">
+            {% csrf_token %}
+          <div class="row justify-content-center mt-4">
+            <div class="col-lg-8 col-xs-10 col-md-8">
+            <div class="card">
+                <div class="card-header text-center">SEARCH RESULT</div>
+                <div class="card-body">
+                {% if filter1_id %}
+                  <table class="table table-dark">
+                    <tbody class= "table-striped">
+                      {% for i in filter1_id %}
+                      <tr>
+                        <th>BOOKID: </th>
+                        <td>{{i.bookid}}</td>
+                      </tr>
+                      <tr>
+                        <th>TITLE: </th>
+                        <td>{{i.title}}</td>
+                      </tr>
+                      <tr>
+                        <th>YEAR OF PUBLISH: </th>
+                        <td>{{i.year_of_publish}}</td>
+                      </tr>
+                      <tr>
+                        <th>PRICE: </th>
+                        <td>{{i.price}}</td>
+                      </tr>         
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                    {% if grate %}
+                    <div class="text-center">
+                      <span class="text-danger">ONLY {{total}} BOOKS ARE AVAILABLE </span>
+                      </div>
+                    {% endif %}
+                  {% endif %}
+                  {% if msg %}
+                      <div class="text-center">
+                      <span class="text-danger">{{msg}}</span>
+                      </div>
+                    {% endif %}
+                  <div class="text-center mt-3">
+                    <button type="button" onclick="exit()" class="btn btn-warning" name="button">RETURN</button>
+                  </div>
+                </div>
+              </div>
+          </div>
+        </div>
+
+          <!-- Modal -->
+          <div class="modal fade" id="exampleModalone" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">SEARCH BY SELECTING ANY OF ONE</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <!--1st Modal Body Start -->
+                <div class="modal-body">
+
+                  <div class="intraction-box">
+                    <div class="container">
+                      <div class="row">
+                        <div class="col-lg-10 col-xs-10  text-center">
+                          <div class="box">
+                              <div class="box-text">
+                                  <label   class="cols-sm-2 control-label">MIN NO OF BOOKS</label>
+                                  <div class="input-group">
+                                    <input type="text" class="form-control" name="mininput" id="minidinput" onclick="firstinput()" placeholder="Enter min no of books" />
+                                  </div>
+                                  <label  class="cols-sm-2 control-label">SELECT MIN PRICE</label>
+                                  <div class="input-group">
+                                    <input type="text" class="form-control" name="minprice" id="minidprice" onclick="secondinput()"  placeholder="Enter min no of price" />
+                                  </div>
+                                  <label  class="cols-sm-2 control-label">YEAR OF PUBLICATION</label>
+                                  <div class="input-group">
+                                    <input type="text" class="form-control" name="minpublication" id="minidpublication" onclick="thirdinput()" placeholder="Enter Year Of Publication" />
+                                  </div>
+                              </div>
+                              <div class="box-btn mt-3">
+                                  <button type="submit" class="btn btn-info">SEARCH</button>
+                              </div>
+                           </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+                <!--1st Modal body end -->
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- 2nd MOdal -->
+          <div class="modal fade" id="exampleModaltwo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">SEARCH BY SELECTING ANY OF TWO</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <!-- Modal Body Start-->
+                <div class="modal-body">
+
+                  <div class="intraction-box">
+                    <div class="container">
+                      <div class="row">
+                        <div class="col-lg-10 col-xs-10  text-center">
+                          <div class="box">
+                              <div class="box-text particular">
+                                  <label class="cols-sm-2 control-label">MIN NO OF BOOKS</label>
+                                  <div class="input-group">
+                                    <input type="text" class="form-control" name="secondminbook" id="secondminvalue"  onclick="myfunc1()" placeholder="Enter min no of books" />
+                                  </div>
+                                  <label  class="cols-sm-2 control-label">SELECT MIN PRICE</label>
+                                  <div class="input-group">
+                                    <input type="text" class="form-control" name="secondminprice" id="secondpriceinput" onclick="myfunc2()" placeholder="Enter min no of price" />
+                                  </div>
+                                  <label  class="cols-sm-2 control-label">YEAR OF PUBLICATION</label>
+                                  <div class="input-group">
+                                    <input type="text" class="form-control" name="secondminyear" id="secondpublication" onclick="myfunc3()" placeholder="Enter Year Of Publication" />
+                                  </div>
+                              </div>
+                              <div class="box-btn mt-3" id="particular-btn">
+                                  <button type="submit" class="btn btn-info">SEARCH</button>
+                              </div>
+                           </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+                <!-- Modal Body ends-->
+                  <div class="modal-footer">
+                  <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- 2nd MOdal end -->
+
+          <!-- 3rd Modal Start-->
+          
+          <!-- 3rd Modal end -->
+        </form>
+    </div>
+
+{% endblock content %}

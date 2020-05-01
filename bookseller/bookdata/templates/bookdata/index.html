@@ -1,0 +1,153 @@
+{% extends 'bookdata/layout.html' %}
+{% load static %}
+{% block title %}
+Book Manager-Home
+{% endblock title %}
+{% block content %}
+<!-- Modal View-->
+{% if messages %}
+<script>
+window.onload = ()=>{
+  $("#myModal").modal('show');}
+</script>
+
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+      {% for msg in messages %}
+      <div class=" alert alert-success">  
+        {{msg}}
+       </div>
+       {% endfor %}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+<!-- Body of index-->
+<div class="bgimg">
+  <div class="container text-center hey">
+    <h1>WELCOME TO MY PROJECT</h1>
+  </div>
+</div>
+    <!-- OUR SERVICRE CODE START-->
+    <div class="container text-center myservice">
+      <h2 id="san">OUR SERVICES</h2>
+      <div class="row myrow">
+        <div class="col-sm-4 col-lg-4 col-md-4 col-10 d-block m-auto">
+          <div class="mycart d-block m-auto">
+            <i class="fa fa-shopping-cart fa-4x " aria-hidden="true"></i>
+          </div>
+          <h2>Book-Purchase</h2>
+          <p>You Can Shop The Books Here</p>
+        </div>
+        <div class="col-sm-4 col-lg-4 col-md-4 col-10 d-block m-auto">
+          <div class="mycart d-block m-auto">
+            <i class="fa fa-desktop fa-3x" aria-hidden="true"></i>
+          </div>
+          <h2>View-Chapter</h2>
+          <p>You Can View Some Chapter As Demo</p>
+        </div>
+        <div class="col-sm-4 col-lg-4 col-md-4 col-10 d-block m-auto">
+          <div class="mycart d-block m-auto">
+            <i class="fa fa-file-pdf fa-4x" aria-hidden="true"></i>
+          </div>
+          <h2>Pdf Download</h2>
+          <p>You Can Also Download Pdf If You Subscribe</p>
+        </div>
+      </div>
+    </div>
+    <!--SOME ASWOME BOOKS CODE-->
+    <div class="port" style="margin-top: 150px;">
+      <div class="container text-center">
+        <h1 style="font-weight:bold;font-size:45px;">SOME ASWOME BOOKS</h1>
+        <h6>These are the some example of Books recommended by Toppers</h6>
+        <div class="row ">
+          <div class="col-sm-12 col-lg-4 col-md-4 col-10 d-block m-auto">
+            <div class="card">
+              <img
+                class="card-img-top"
+                src="{% static 'Physics Book.jpg' %}"
+              />
+              <div class="card-body">
+                <h2 class="card-title">PHYSICS</h2>
+                <p class="card-text">BY H.C VERMA</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-12 col-lg-4 col-md-4 col-10 d-block m-auto">
+            <div class="card">
+              <img
+                class="card-img-top"
+                src=" {% static 'R.D Sharma.jpg' %}"
+              />
+              <div class="card-body">
+                <h2 class="card-title">MATHEMATICS</h2>
+                <p class="card-text">BY R.D SHARMA</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-12 col-lg-4 col-md-4 col-10 d-block m-auto">
+            <div class="card ">
+              <img
+                class="card-img-top"
+                src="{% static '5.jpg' %}"
+              />
+              <div class="card-body">
+                <h2 class="card-title">ORGANIC CHEMISTRY</h2>
+                <p class="card-text">BY O.P TENDON</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-12 col-lg-4 col-md-4 col-10 d-block m-auto">
+            <div class="card">
+              <img
+                class="card-img-top"
+                src="{% static '6.jpg' %}"
+              />
+              <div class="card-body">
+                <h2 class="card-title">GATE</h2>
+                <p class="card-text">BY PRANAV SHARMA</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-12 col-lg-4 col-md-4 col-10 d-block m-auto">
+            <div class="card">
+              <img
+                class="card-img-top"
+                src="{% static '4.jpg' %}"
+              />
+              <div class="card-body">
+                <h2 class="card-title">PROGRAMMING</h2>
+                <p class="card-text">BY E.BALAGURUSAMY</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-12 col-lg-4 col-md-4 col-10 d-block m-auto">
+            <div class="card">
+              <img
+                class="card-img-top"
+                src="{% static '7.jpg' %}"
+              />
+              <div class="card-body">
+                <h2 class="card-title">DATABASE DESIGN</h2>
+                <p class="card-text">BY NAVATE</p>
+              </div>
+            </div>
+          </div>
+        </div>  
+      </div>
+{% endblock content %}
+</div>

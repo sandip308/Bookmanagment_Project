@@ -1,0 +1,113 @@
+{% extends 'work.html' %}
+{% load static %}
+    <!-- Interaction Script Here -->
+    {% block title %}
+        <title>Update Or Delete</title>
+    {% endblock title %}
+    {% block link %}
+      <link rel="stylesheet" href="{% static "css/updatedelete.css" %}">
+    {% endblock link %}
+{% block script %}
+    <script type="text/javascript">
+            function win1(){
+                window.open("{% url 'deleteauthor' %}","deleteauthor");
+            }
+            function win2(){
+                window.open("{% url 'deletecatagory' %}","deletecatagory");
+            }
+            function win3(){
+                window.open("{% url 'deletecatalog' %}","deletecatalog");
+                
+            }
+            function win4(){
+                window.open("{% url 'deleteorderdetails' %} ","deleteorderdetails");
+            }
+            function win5(){
+                window.open("{% url 'deletepublisher' %} ","deletepublisher");
+            }
+        </script>
+{% endblock script %}
+{% block content %}
+<div class="intraction-box">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-xs-6  text-center mt-5">
+                <div class="box">
+                    <i class="fa fa-user fa-3x" aria-hidden="true"></i>
+                        <div class="box-title">
+                            <h3>AUTHORS</h3>
+                        </div>
+                        <div class="box-text">
+                            <span>Click The Button To Update or Delete Author</span>
+                        </div>
+                            <div class="box-btn">
+                        <button type="button" class="btn btn-danger" onclick="win1()" >SELECT</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-xs-6  text-center mt-5">
+                <div class="box">
+                    <i class="fa fa-book fa-3x" aria-hidden="true"></i>
+                        <div class="box-title">
+                            <h3>CATAGORY</h3>
+                        </div>
+                        <div class="box-text">
+                            <span>Click The Button To Update or Delete Catagory</span>
+                        </div>
+                            <div class="box-btn">
+                        <button type="button" class="btn btn-danger" onclick="win2()" >SELECT</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-xs-6  text-center mt-5">
+                <div class="box">
+                    <i class="fa fa-info-circle fa-3x" aria-hidden="true"></i>
+                        <div class="box-title">
+                            <h3>CATALOG</h3>
+                        </div>
+                        <div class="box-text">
+                            <span>Click The Button To Update or Delete Catalog</span>
+                        </div>
+                            <div class="box-btn">
+                        <button type="button" class="btn btn-danger" onclick="win3()" >SELECT</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-xs-6  text-center mt-5">
+                <div class="box">
+                    <i class="fa fa-cart-arrow-down fa-3x" aria-hidden="true"></i>
+                        <div class="box-title">
+                            <h3>ORDER DETAILS</h3>
+                        </div>
+                        <div class="box-text">
+                            <span>Click The Button To Update or Delete Order</span>
+                        </div>
+                            <div class="box-btn">
+                        <button type="button" class="btn btn-danger" onclick="win4()" >SELECT</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-xs-6  text-center mt-5">
+                <div class="box">
+                    <i class="fa fa-trash fa-3x" aria-hidden="true"></i>
+                        <div class="box-title">
+                            <h3>PUBLISHER</h3>
+                        </div>
+                        <div class="box-text">
+                            <span>Click The Button To Update or Delete Publisher</span>
+                        </div>
+                            <div class="box-btn">
+                        <button type="button" class="btn btn-danger" onclick="win5()" >SELECT</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock content %}
